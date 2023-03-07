@@ -10,8 +10,10 @@ namespace NetworkingGame
     {
         public static void Main(string[] args)
         {
+            Console.Write("Input host adress: ");
+            string ipAdress = Console.ReadLine();
             Console.WriteLine("Client: Connecting....");
-            TcpClient client = new TcpClient("127.0.0.01", 4587);
+            TcpClient client = new TcpClient(ipAdress, 4587);
             //client.Connect(IPAddress.Parse("127.0.0.1"), 4587);
             Console.WriteLine("Client: Connected");
 
