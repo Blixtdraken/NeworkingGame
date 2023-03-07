@@ -5,3 +5,10 @@ C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\ob
 C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\obj\Debug\ConsoleListener.csproj.CoreCompileInputs.cache
 C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\obj\Debug\ConsoleListener.exe
 C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\obj\Debug\ConsoleListener.pdb
+C:\Users\blixt\Documents\GitHub\NeworkingGame\ConsoleListener\bin\Debug\ConsoleListener.exe
+C:\Users\blixt\Documents\GitHub\NeworkingGame\ConsoleListener\bin\Debug\ConsoleListener.pdb
+C:\Users\blixt\Documents\GitHub\NeworkingGame\ConsoleListener\obj\Debug\ConsoleListener.csproj.AssemblyReference.cache
+C:\Users\blixt\Documents\GitHub\NeworkingGame\ConsoleListener\obj\Debug\ConsoleListener.csproj.SuggestedBindingRedirects.cache
+C:\Users\blixt\Documents\GitHub\NeworkingGame\ConsoleListener\obj\Debug\ConsoleListener.csproj.CoreCompileInputs.cache
+C:\Users\blixt\Documents\GitHub\NeworkingGame\ConsoleListener\obj\Debug\ConsoleListener.exe
+C:\Users\blixt\Documents\GitHub\NeworkingGame\ConsoleListener\obj\Debug\ConsoleListener.pdb

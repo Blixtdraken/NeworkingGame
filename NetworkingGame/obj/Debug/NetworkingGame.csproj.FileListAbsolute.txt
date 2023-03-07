@@ -1,0 +1,7 @@
+C:\Users\blixt\Documents\GitHub\NeworkingGame\NetworkingGame\bin\Debug\NetworkingGame.exe
+C:\Users\blixt\Documents\GitHub\NeworkingGame\NetworkingGame\bin\Debug\NetworkingGame.pdb
+C:\Users\blixt\Documents\GitHub\NeworkingGame\NetworkingGame\obj\Debug\NetworkingGame.csproj.AssemblyReference.cache
+C:\Users\blixt\Documents\GitHub\NeworkingGame\NetworkingGame\obj\Debug\NetworkingGame.csproj.SuggestedBindingRedirects.cache
+C:\Users\blixt\Documents\GitHub\NeworkingGame\NetworkingGame\obj\Debug\NetworkingGame.csproj.CoreCompileInputs.cache
+C:\Users\blixt\Documents\GitHub\NeworkingGame\NetworkingGame\obj\Debug\NetworkingGame.exe
+C:\Users\blixt\Documents\GitHub\NeworkingGame\NetworkingGame\obj\Debug\NetworkingGame.pdb

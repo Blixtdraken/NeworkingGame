@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wave Fucntion Collapse", "Wave Fucntion Collapse\Wave Fucntion Collapse.csproj", "{BE52A330-2855-46C1-8C4A-D6CB6A5B3152}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkingGame", "NetworkingGame\NetworkingGame.csproj", "{BE52A330-2855-46C1-8C4A-D6CB6A5B3152}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleListener", "ConsoleListener\ConsoleListener.csproj", "{B591337F-19AF-4F25-9436-EAAB8F8E81C8}"
 EndProject

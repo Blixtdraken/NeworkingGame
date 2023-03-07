@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Wave_Fucntion_Collapse
+namespace NetworkingGame
 {
     internal class Program
     {
@@ -20,15 +20,21 @@ namespace Wave_Fucntion_Collapse
             {
                 
                 byte[] bytes = Encoding.ASCII.GetBytes(Console.ReadLine());
-
-                byte[] buffer = new byte[256];
-
-                //foreach (byte VARIABLE in bytes)
-                // {
-              //      
-              //  } 
                 
-                client.GetStream().Write(bytes, 1, 256);
+               // client.GetStream().Write(bytes, 0, bytes.Length);
+               byte[] buffer = new byte[256];
+
+               int i = 0;
+               foreach (byte dataBit in bytes)
+               {
+                   
+                   buffer[i] = dataBit;
+                   i++;
+               }
+                
+                
+                
+                client.GetStream().Write(buffer, 0, buffer.Length);
                 //client.GetStream().WriteByte(Byte.Parse(Console.ReadLine()));
                 
                 

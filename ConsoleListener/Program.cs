@@ -33,6 +33,7 @@ namespace ConsoleListener
             while (true)
             {
                 server.GetStream().Read(buffer, 0, 256);
+                
                 Console.WriteLine(Encoding.ASCII.GetString(buffer));
             }
             Console.ReadLine();
