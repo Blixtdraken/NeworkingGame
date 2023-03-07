@@ -1,0 +1,7 @@
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\bin\Debug\ConsoleListener.exe
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\bin\Debug\ConsoleListener.pdb
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\obj\Debug\ConsoleListener.csproj.AssemblyReference.cache
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\obj\Debug\ConsoleListener.csproj.SuggestedBindingRedirects.cache
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\obj\Debug\ConsoleListener.csproj.CoreCompileInputs.cache
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\obj\Debug\ConsoleListener.exe
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\ConsoleListener\obj\Debug\ConsoleListener.pdb

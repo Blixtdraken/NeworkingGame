@@ -1,0 +1,7 @@
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\Wave Fucntion Collapse\bin\Debug\Wave_Fucntion_Collapse.exe
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\Wave Fucntion Collapse\bin\Debug\Wave_Fucntion_Collapse.pdb
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\Wave Fucntion Collapse\obj\Debug\Wave Fucntion Collapse.csproj.AssemblyReference.cache
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\Wave Fucntion Collapse\obj\Debug\Wave Fucntion Collapse.csproj.SuggestedBindingRedirects.cache
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\Wave Fucntion Collapse\obj\Debug\Wave Fucntion Collapse.csproj.CoreCompileInputs.cache
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\Wave Fucntion Collapse\obj\Debug\Wave_Fucntion_Collapse.exe
+C:\Users\pontus.daderman\RiderProjects\Wave Fucntion Collapse\Wave Fucntion Collapse\obj\Debug\Wave_Fucntion_Collapse.pdb
