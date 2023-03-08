@@ -1,0 +1,7 @@
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\GameServer\bin\Debug\GameServer.exe
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\GameServer\bin\Debug\GameServer.pdb
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\GameServer\obj\Debug\GameServer.csproj.AssemblyReference.cache
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\GameServer\obj\Debug\GameServer.csproj.SuggestedBindingRedirects.cache
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\GameServer\obj\Debug\GameServer.csproj.CoreCompileInputs.cache
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\GameServer\obj\Debug\GameServer.exe
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\GameServer\obj\Debug\GameServer.pdb
