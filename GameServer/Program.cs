@@ -33,7 +33,7 @@ namespace ConsoleListener
                 {
                     server.GetStream().Read(buffer, 0, 256);
                 
-                    Console.Write("Buffer: " + Encoding.ASCII.GetString(buffer));
+                    Console.WriteLine("Buffer: " + Encoding.ASCII.GetString(buffer));
                     
                 }
                 catch (IOException e)
