@@ -16,16 +16,15 @@ static public class Cipher
     static public string Decode(byte[] encoding)
     {
         byte[] decoding = new byte[0];
-        for (int i = encoding.Length -1; i < 1; i--)
+        for (int i = encoding.Length -1; i >= 0; i--)
         {
             if (encoding[i] != 00)
             {
                 decoding = new byte[i+1];
-                int f = 0;
-                foreach (byte bit in decoding)
+                
+                for(int j = 0; i>decoding.Length-1; j++)
                 {
-                    decoding[f] = bit;
-                    f++;
+                    decoding[j] = encoding[j];
                 }
 
                 break;
