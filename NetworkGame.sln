@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkingGame", "NetworkingGame\NetworkingGame.csproj", "{BE52A330-2855-46C1-8C4A-D6CB6A5B3152}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServer", "GameServer\GameServer.csproj", "{B591337F-19AF-4F25-9436-EAAB8F8E81C8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{3E4B0B46-2DC0-4217-BE07-2C387CBE0E4B}"
 EndProject
 Global
@@ -16,10 +14,6 @@ Global
 		{BE52A330-2855-46C1-8C4A-D6CB6A5B3152}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE52A330-2855-46C1-8C4A-D6CB6A5B3152}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE52A330-2855-46C1-8C4A-D6CB6A5B3152}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B591337F-19AF-4F25-9436-EAAB8F8E81C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B591337F-19AF-4F25-9436-EAAB8F8E81C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B591337F-19AF-4F25-9436-EAAB8F8E81C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B591337F-19AF-4F25-9436-EAAB8F8E81C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E4B0B46-2DC0-4217-BE07-2C387CBE0E4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E4B0B46-2DC0-4217-BE07-2C387CBE0E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E4B0B46-2DC0-4217-BE07-2C387CBE0E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
