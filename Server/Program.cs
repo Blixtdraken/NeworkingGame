@@ -54,6 +54,7 @@ void CommandEvents()
     {
         if (Console.ReadLine() == "stop")
         {
+            
             System.Environment.Exit(0);
             Console.WriteLine("Closed");
         }
@@ -74,25 +75,27 @@ while (true)
     
     if (Lists.msgque.Count >= 1)
     {
-        Console.WriteLine(Lists.msgque[0].msg);
-        byte[] bytes = Encoding.ASCII.GetBytes(Lists.msgque[0].msg);
-                
+        byte[] bytes = new byte[256];
+        if (string.Empty != Lists.msgque[0].msg)
+        {
+            Console.WriteLine(Lists.msgque[0].msg + " ");
+            bytes = Encoding.ASCII.GetBytes(Lists.msgque[0].msg);
+        }
+
+
         // client.GetStream().Write(bytes, 0, bytes.Length);
         foreach (TcpClient client in Lists.clients)
         {
-
             if (client != Lists.msgque[0].sender)
             {
-                
-            
                 byte[] buffer = new byte[256];
                 int i = 0;
                 foreach (byte dataBit in bytes)
                 {
-                   
-                buffer[i] = dataBit;
-                i++;
+                    buffer[i] = dataBit;
+                    i++;
                 }
+
                 client.GetStream().Write(buffer, 0, buffer.Length);
             }
             else
@@ -100,6 +103,7 @@ while (true)
                 Thread.Sleep(10);
             }
         }
+
         Lists.msgque.RemoveAt(0);
     }
 }
