@@ -5,43 +5,48 @@ using System.Net.Mime;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
+using Server;
 
+
+Console.WriteLine(Cipher.Encode("bob", 256));
+Console.WriteLine(Cipher.Decode(Cipher.Encode("bob var bra", 256)));
 
 void ListenForClients([In,Out] TcpListener listener)
 {
     while (true)
     {
+        
         listener.Start();
         Console.WriteLine("Start Listening");
         TcpClient client = listener.AcceptTcpClient();
+        Chatter chatter = new Chatter("", client);
         Console.WriteLine("Client Accepted");
-        new Task(() => {RunMsgTask(client);}).Start();
+        new Task(() => {RunMsgTask(chatter);}).Start();
         
-        Lists.clients.Add(client);
+        Lists.chatters.Add(chatter);
     }
       
        
 }
 
-void RunMsgTask([In,Out]TcpClient client)
+void RunMsgTask([In,Out]Chatter chatter)
 {
     Console.WriteLine("Start Scanning Msg");
     byte[] buffer = new byte[256];
     while (true)
     {
-        if (!client.Connected) break;
         try
         {
-            client.GetStream().Read(buffer, 0, 256);
+            chatter.client.GetStream().Read(buffer, 0, 256);
             //Console.WriteLine(Encoding.ASCII.GetString(buffer));
-            Lists.msgque.Add(new MessageData(Encoding.ASCII.GetString(buffer), client));
+            Lists.msgque.Add(new MessageData(Encoding.ASCII.GetString(buffer), chatter));
                     
         }
         catch (IOException e)
         {
             Console.WriteLine("A Client discconected!");
-            client.Close();
-            
+            chatter.client.Close();
+            Lists.chatters.Remove(chatter);
             break;
         }
         
@@ -84,19 +89,19 @@ while (true)
 
 
         // client.GetStream().Write(bytes, 0, bytes.Length);
-        foreach (TcpClient client in Lists.clients)
+        foreach (Chatter chatter in Lists.chatters)
         {
-            if (client != Lists.msgque[0].sender)
+            if (chatter != Lists.msgque[0].sender)
             {
                 byte[] buffer = new byte[256];
                 int i = 0;
                 foreach (byte dataBit in bytes)
                 {
                     buffer[i] = dataBit;
-                    i++;
+                     i++;
                 }
-
-                client.GetStream().Write(buffer, 0, buffer.Length);
+                
+                if(isClientAlive(chatter.client))chatter.client.GetStream().Write(buffer, 0, buffer.Length);
             }
             else
             {
@@ -120,9 +125,7 @@ while (true)
     while (true)
     {
         
-        try
-        {
-            server.GetStream().Read(buffer, 0, 256);
+        tr        {            server.GetStream().Read(buffer, 0, 256);
                 
             Console.WriteLine("Buffer: " + Encoding.ASCII.GetString(buffer));
                     
@@ -139,20 +142,44 @@ while (true)
                 
 }
 
+bool isClientAlive(TcpClient client)
+{
+    try
+    {
+        bool test = client.Connected;
+        return true;
+    }
+    catch (ObjectDisposedException e)
+    {
+        Console.WriteLine("Tried using a dead client");
+        return false;
+    }
+}
 static class Lists
 {
     
-    public static List<TcpClient> clients = new List<TcpClient>();
+    public static List<Chatter> chatters = new List<Chatter>();
     public static List<MessageData> msgque = new List<MessageData>();
 }
 
 public class MessageData
 {
-    public MessageData(string msg, TcpClient sender)
+    public MessageData(string msg, Chatter sender)
     {
         this.msg = msg;
         this.sender = sender;
     }
     public string msg;
-    public TcpClient sender;
+    public Chatter sender;
+}
+
+public class Chatter
+{
+    public Chatter(string name, TcpClient client)
+    {
+        this.name = name;
+        this.client = client;
+    }
+    public TcpClient client;
+    public string name;
 }

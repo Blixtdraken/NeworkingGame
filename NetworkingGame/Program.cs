@@ -18,8 +18,8 @@ namespace NetworkingGame
             {
                 Console.WriteLine("Start Scanning Msg");
                 byte[] buffer = new byte[256];
-                while (true)
-                {
+                while (true){
+                
                     if (!client.Connected) break;
                     try
                     {

@@ -1,0 +1,7 @@
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\Connect Test\bin\Debug\Connect_Test.exe
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\Connect Test\bin\Debug\Connect_Test.pdb
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\Connect Test\obj\Debug\Connect Test.csproj.AssemblyReference.cache
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\Connect Test\obj\Debug\Connect Test.csproj.SuggestedBindingRedirects.cache
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\Connect Test\obj\Debug\Connect Test.csproj.CoreCompileInputs.cache
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\Connect Test\obj\Debug\Connect_Test.exe
+C:\Users\pontus.daderman\Documents\GitHub\NeworkingGame\Connect Test\obj\Debug\Connect_Test.pdb
