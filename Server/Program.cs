@@ -81,7 +81,7 @@ while (true)
         foreach (TcpClient client in Lists.clients)
         {
 
-            if (client == Lists.msgque[0].sender)
+            if (client != Lists.msgque[0].sender)
             {
                 
             
@@ -94,14 +94,13 @@ while (true)
                 i++;
                 }
                 client.GetStream().Write(buffer, 0, buffer.Length);
-                
-                Lists.msgque.RemoveAt(0);
-        }
+            }
             else
             {
                 Thread.Sleep(10);
             }
         }
+        Lists.msgque.RemoveAt(0);
     }
 }
 
