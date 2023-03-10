@@ -24,7 +24,7 @@ namespace NetworkingGame
                     try
                     {
                         client.GetStream().Read(buffer, 0, 256);
-                        Console.WriteLine(Encoding.ASCII.GetString(buffer));
+                        Console.WriteLine(Cipher.Decode(buffer));
                         
                     
                     }
@@ -50,6 +50,7 @@ namespace NetworkingGame
             Console.WriteLine(ipAdress);
             Console.WriteLine("Client: Connecting....");
             TcpClient client = new TcpClient(ipAdress, 4587);
+            client.GetStream().Write(Cipher.Encode(name, 256), 0 ,256);
             new Task(() => {RunMsgTask(client);}).Start();
             //client.Connect(IPAddress.Parse("127.0.0.1"), 4587);
             Console.WriteLine("Client: Connected");
@@ -57,24 +58,11 @@ namespace NetworkingGame
 
             while (true)
             {
-                
-                byte[] bytes = Encoding.ASCII.GetBytes(name + ": " + Console.ReadLine());
-                
-               // client.GetStream().Write(bytes, 0, bytes.Length);
-               byte[] buffer = new byte[256];
 
-               int i = 0;
-               foreach (byte dataBit in bytes)
-               {
-                   
-                   buffer[i] = dataBit;
-                   i++;
-               }
-                
-                
-                
+                byte[] buffer = new byte[256];
+                buffer = Cipher.Encode(name + ": " + Console.ReadLine(), 256);
                 client.GetStream().Write(buffer, 0, buffer.Length);
-                //client.GetStream().WriteByte(Byte.Parse(Console.ReadLine()));
+                
                 
             }
 

@@ -1,15 +1,9 @@
 ﻿
-using System.Collections;
+
 using System.Net;
-using System.Net.Mime;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
-using System.Text;
 using Server;
-
-
-Console.WriteLine(Cipher.Encode("bob", 256));
-Console.WriteLine(Cipher.Decode(Cipher.Encode("bob var bra", 256)));
 
 void ListenForClients([In,Out] TcpListener listener)
 {
@@ -17,10 +11,11 @@ void ListenForClients([In,Out] TcpListener listener)
     {
         
         listener.Start();
-        Console.WriteLine("Start Listening");
         TcpClient client = listener.AcceptTcpClient();
-        Chatter chatter = new Chatter("", client);
-        Console.WriteLine("Client Accepted");
+        byte[] buffer = new byte[256];
+        client.GetStream().Read(buffer, 0, 256);
+        Chatter chatter = new Chatter(Cipher.Decode(buffer), client);
+        Lists.msgque.Add(new MessageData(chatter.name+ " just joined the chat room!", chatter));
         new Task(() => {RunMsgTask(chatter);}).Start();
         
         Lists.chatters.Add(chatter);
@@ -31,20 +26,18 @@ void ListenForClients([In,Out] TcpListener listener)
 
 void RunMsgTask([In,Out]Chatter chatter)
 {
-    Console.WriteLine("Start Scanning Msg");
     byte[] buffer = new byte[256];
     while (true)
     {
         try
         {
             chatter.client.GetStream().Read(buffer, 0, 256);
-            //Console.WriteLine(Encoding.ASCII.GetString(buffer));
-            Lists.msgque.Add(new MessageData(Encoding.ASCII.GetString(buffer), chatter));
+            Lists.msgque.Add(new MessageData(Cipher.Decode(buffer), chatter));
                     
         }
         catch (IOException e)
         {
-            Console.WriteLine("A Client discconected!");
+            Console.WriteLine(chatter.name + " discconected!");
             chatter.client.Close();
             Lists.chatters.Remove(chatter);
             break;
@@ -75,33 +68,28 @@ Console.WriteLine("Init Listener");
 new Task(() => { ListenForClients(listener);}).Start();
 
 Console.WriteLine("Start applying messages");
+Console.Clear();
+Console.WriteLine("Started");
 while (true)
 {
     
-    if (Lists.msgque.Count >= 1)
+    if (Lists.msgque.Count >= 1 && Lists.msgque[0] != null)
     {
-        byte[] bytes = new byte[256];
-        if (string.Empty != Lists.msgque[0].msg)
+        //Console.WriteLine(Lists.msgque.Count);
+        //Console.WriteLine(Lists.msgque.Count());
+        //Console.WriteLine(Lists.msgque[0].ToString());
+        if ("" != Lists.msgque[0].msg)
         {
             Console.WriteLine(Lists.msgque[0].msg + " ");
-            bytes = Encoding.ASCII.GetBytes(Lists.msgque[0].msg);
         }
 
 
-        // client.GetStream().Write(bytes, 0, bytes.Length);
+        
         foreach (Chatter chatter in Lists.chatters)
         {
             if (chatter != Lists.msgque[0].sender)
             {
-                byte[] buffer = new byte[256];
-                int i = 0;
-                foreach (byte dataBit in bytes)
-                {
-                    buffer[i] = dataBit;
-                     i++;
-                }
-                
-                if(isClientAlive(chatter.client))chatter.client.GetStream().Write(buffer, 0, buffer.Length);
+                if(isClientAlive(chatter.client))chatter.client.GetStream().Write(Cipher.Encode(Lists.msgque[0].msg, 256), 0, 256);
             }
             else
             {
@@ -113,34 +101,6 @@ while (true)
     }
 }
 
-
-
-
-
-
-while (true)
-{
-/*
-    byte[] buffer = new byte[256];
-    while (true)
-    {
-        
-        tr        {            server.GetStream().Read(buffer, 0, 256);
-                
-            Console.WriteLine("Buffer: " + Encoding.ASCII.GetString(buffer));
-                    
-        }
-        catch (IOException e)
-        {
-            Console.WriteLine("Client discconected!");
-            server.Close();
-            break;
-        }
-        
-    }
-        */
-                
-}
 
 bool isClientAlive(TcpClient client)
 {

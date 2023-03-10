@@ -22,7 +22,7 @@ static public class Cipher
             {
                 decoding = new byte[i+1];
                 
-                for(int j = 0; i>decoding.Length-1; j++)
+                for(int j = 0; j<decoding.Length; j++)
                 {
                     decoding[j] = encoding[j];
                 }
