@@ -1,5 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace Connect_Test
 {
@@ -7,7 +11,20 @@ namespace Connect_Test
     {
         public static void Main(string[] args)
         {
-            TcpClient client = new TcpClient("130.61.171.190", 13000);
+            
+            while (true)
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                
+                    Console.Write(key.KeyChar + "");
+                    
+                    if (key.Key == ConsoleKey.Enter)
+                    {
+                        break;
+                    }
+                
+            }
+            Console.ReadLine();
         }
     }
 }

@@ -8,7 +8,7 @@ static public class Cipher
     {
 
         byte[] encodedText = new byte[size];
-        Encoding.ASCII.GetBytes(text, encodedText);
+        Encoding.UTF8.GetBytes(text, encodedText);
         
         return encodedText;
     }
@@ -31,6 +31,6 @@ static public class Cipher
             }
         }
         
-        return Encoding.ASCII.GetString(decoding);
+        return Encoding.UTF8.GetString(decoding);
     }
 }

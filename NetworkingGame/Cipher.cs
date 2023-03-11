@@ -7,7 +7,7 @@ namespace NetworkingGame
         static public byte[] Encode(string text, int size)
         {
 
-            byte[] encodedText = Encoding.ASCII.GetBytes(text);
+            byte[] encodedText = Encoding.UTF8.GetBytes(text);
 
             byte[] output = new byte[size];
             int i = 0;
@@ -37,7 +37,7 @@ namespace NetworkingGame
                 }
             }
         
-            return Encoding.ASCII.GetString(decoding);
+            return Encoding.UTF8.GetString(decoding);
         }
     }
 }

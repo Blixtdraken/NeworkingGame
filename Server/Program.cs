@@ -1,9 +1,8 @@
-﻿
-
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using Server;
+
 
 void ListenForClients([In,Out] TcpListener listener)
 {
@@ -15,9 +14,8 @@ void ListenForClients([In,Out] TcpListener listener)
         byte[] buffer = new byte[256];
         client.GetStream().Read(buffer, 0, 256);
         Chatter chatter = new Chatter(Cipher.Decode(buffer), client);
-        Lists.msgque.Add(new MessageData(chatter.name+ " just joined the chat room!", chatter));
+        Lists.msgque.Add(new MessageData(chatter.name+ " just joined the chat room!", Statics.systemChatter));
         new Task(() => {RunMsgTask(chatter);}).Start();
-        
         Lists.chatters.Add(chatter);
     }
       
@@ -80,22 +78,30 @@ while (true)
         //Console.WriteLine(Lists.msgque[0].ToString());
         if ("" != Lists.msgque[0].msg)
         {
-            Console.WriteLine(Lists.msgque[0].msg + " ");
+            Console.WriteLine(Lists.msgque[0].sender.name + ": " + Lists.msgque[0].msg + " ");
         }
-
-
-        
-        foreach (Chatter chatter in Lists.chatters)
+        else
         {
-            if (chatter != Lists.msgque[0].sender)
+            Console.WriteLine(Lists.msgque[0].sender.name + ":  ");
+        }
+
+
+        lock (Lists.chatters)
+        {
+            List<Chatter> list = new List<Chatter>(Lists.chatters);
+            foreach (Chatter chatter in list)
             {
-                if(isClientAlive(chatter.client))chatter.client.GetStream().Write(Cipher.Encode(Lists.msgque[0].msg, 256), 0, 256);
-            }
-            else
-            {
-                Thread.Sleep(10);
+                if (chatter != Lists.msgque[0].sender)
+                {
+                    if(isClientAlive(chatter.client))chatter.client.GetStream().Write(Cipher.Encode(Lists.msgque[0].sender.name + ": " + Lists.msgque[0].msg, 256), 0, 256);
+                }
+                else
+                {
+                    Thread.Sleep(100);
+                }
             }
         }
+        
 
         Lists.msgque.RemoveAt(0);
     }
@@ -115,6 +121,10 @@ bool isClientAlive(TcpClient client)
         return false;
     }
 }
+public static class Statics
+{
+    public static Chatter systemChatter = new Chatter("Server", null);
+}
 static class Lists
 {
     
@@ -129,8 +139,10 @@ public class MessageData
         this.msg = msg;
         this.sender = sender;
     }
+    
     public string msg;
     public Chatter sender;
+    public bool isSystem = false;
 }
 
 public class Chatter
