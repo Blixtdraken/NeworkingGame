@@ -1,6 +1,8 @@
-﻿using System.Net;
+﻿using System.Collections.Concurrent;
+using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.JavaScript;
 using Server;
 
 
@@ -35,9 +37,10 @@ void RunMsgTask([In,Out]Chatter chatter)
         }
         catch (IOException e)
         {
-            Console.WriteLine(chatter.name + " discconected!");
+            Lists.msgque.Add(new MessageData(chatter.name + " discconected!", Statics.systemChatter));
             chatter.client.Close();
             Lists.chatters.Remove(chatter);
+            
             break;
         }
         
@@ -71,29 +74,41 @@ Console.WriteLine("Started");
 while (true)
 {
     
-    if (Lists.msgque.Count >= 1 && Lists.msgque[0] != null)
+    if (Lists.msgque.GetCount() >= 1 && Lists.msgque.GetAt(0) != null)
     {
         //Console.WriteLine(Lists.msgque.Count);
         //Console.WriteLine(Lists.msgque.Count());
         //Console.WriteLine(Lists.msgque[0].ToString());
-        if ("" != Lists.msgque[0].msg)
+        if ("" != Lists.msgque.GetAt(0).msg)
         {
-            Console.WriteLine(Lists.msgque[0].sender.name + ": " + Lists.msgque[0].msg + " ");
+            Console.WriteLine(Lists.msgque.GetAt(0).sender.name + ": " + Lists.msgque.GetAt(0).msg + " ");
         }
         else
         {
-            Console.WriteLine(Lists.msgque[0].sender.name + ":  ");
+            Console.WriteLine(Lists.msgque.GetAt(0).sender.name + ":  ");
         }
 
-
+        
         lock (Lists.chatters)
         {
-            List<Chatter> list = new List<Chatter>(Lists.chatters);
-            foreach (Chatter chatter in list)
+            
+            foreach (Chatter chatter in Lists.chatters.getCopyOfInternalList())
             {
-                if (chatter != Lists.msgque[0].sender)
+                if (chatter != Lists.msgque.GetAt(0).sender)
                 {
-                    if(isClientAlive(chatter.client))chatter.client.GetStream().Write(Cipher.Encode(Lists.msgque[0].sender.name + ": " + Lists.msgque[0].msg, 256), 0, 256);
+                    try
+                    {
+                        if (isClientAlive(chatter.client))
+                            chatter.client.GetStream()
+                                .Write(
+                                    Cipher.Encode(Lists.msgque.GetAt(0).sender.name + ": " + Lists.msgque.GetAt(0).msg,
+                                        256), 0, 256);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("ERROR: Tried to write on dead connectrion!");
+                    }
+                   
                 }
                 else
                 {
@@ -112,12 +127,11 @@ bool isClientAlive(TcpClient client)
 {
     try
     {
-        bool test = client.Connected;
+        bool test = client.GetStream().CanWrite;
         return true;
     }
     catch (ObjectDisposedException e)
     {
-        Console.WriteLine("Tried using a dead client");
         return false;
     }
 }
@@ -128,8 +142,8 @@ public static class Statics
 static class Lists
 {
     
-    public static List<Chatter> chatters = new List<Chatter>();
-    public static List<MessageData> msgque = new List<MessageData>();
+    public static SafeList<Chatter>chatters = new SafeList<Chatter>();
+    public static SafeList<MessageData> msgque = new SafeList<MessageData>();
 }
 
 public class MessageData
