@@ -5,7 +5,12 @@ namespace Server;
 public class ChatterClient: TcpClient
 {
     private const int bufferSize = 256;
-    private SafeList<byte[]> localPacketBuffer = new SafeList<byte[]>();
+    public string chatterName { get; set; }
+    public bool beenNamed { get; set; }
+    
+    public ChatRoom currentRoom { get; set; }
+
+    public EventHandler ReceivedMsgEvent;
 
     public ChatterClient(Socket socket)
     {
@@ -16,28 +21,12 @@ public class ChatterClient: TcpClient
         
         
     }
-
-    void Debug()
-    {
-        while (true)
-        {
-            Console.WriteLine("BUffer Size: " + localPacketBuffer.GetCount());
-            Thread.Sleep(10);
-        }
-    }
-    void ByteReadingTask()
+    private void ByteReadingTask()
     {
         while (!Connected);
         while (true)
         {
             byte[] bytes = ReceiveBytes();
-            while (isReadBusy);
-            localPacketBuffer.Add(bytes);
-            Console.WriteLine("Got TEXT " + Cipher.Decode(bytes));
-            if (bytes == null)
-            {
-                Console.WriteLine("                       ewigfhwohfbukwrbfiowrgorwgorbgrngorngiwr                        Got Null Bytes");
-            }
         }
         
     }
@@ -73,39 +62,20 @@ public class ChatterClient: TcpClient
         return SendBytes(Cipher.Encode(text, bufferSize));
     }
 
-    byte[] ReceiveBytes()
+    private byte[] ReceiveBytes()
     {
         byte[] buffer = new byte[bufferSize];
         GetStream().Read(buffer, 0, bufferSize);
         return buffer;
     }
 
-    void StreamClosed(ChatterClient client)
-    {
-        
-    }
-
     private bool isReadBusy = false;
-    public byte[] ReadBuffer()                      //Randomlly Returns null bytes
-    {
-        byte[] bytes = null;
-        while (bytes == null)
-        {
-            while (localPacketBuffer.GetCount() == 0 || isReadBusy);
-            isReadBusy = true;
-            Console.WriteLine(localPacketBuffer.GetAt(0)[0]);
-            bytes = localPacketBuffer.GetAt(0); Console.WriteLine("Size Before: " + localPacketBuffer.GetCount());
-            localPacketBuffer.RemoveAt(0);  Console.WriteLine("Removed Bytes");
-            isReadBusy = false; Console.WriteLine("Buffer After: " + localPacketBuffer.GetCount());
-            if(bytes == null)Console.WriteLine("It was null");
-        }
-        Console.WriteLine("Bytes Read as: "+ Cipher.Decode(bytes));
-        return bytes;
-    }
-    public byte[] PeekAtBuffer()
-    {
-        return localPacketBuffer.GetAt(0);
-    }
+   
     
-    
+}
+
+class ReceivedMsgEventArgs:EventArgs
+{
+    public string msg { get; set; }
+    public ChatterClient sender { get; set; }
 }

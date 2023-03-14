@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.JavaScript;
 using Server;
 
 //This function listens for clients trying to connect, if one is found the remote client is expected to send a 256 bytes long 
@@ -17,40 +16,57 @@ void ListenForClients([In,Out] TcpListener listener)
         ChatterClient client = new ChatterClient(listener.AcceptTcpClient().Client);
 
         Console.WriteLine("Client Connected!");
-        string clientName = Cipher.Decode(client.ReadBuffer());
-        Console.WriteLine("Client name of " + clientName);
-        Chatter chatter = new Chatter(clientName, client);
-        //new Task(() => {RunMsgTask(chatter);}).Start();
-        new Task(() =>StartSession(chatter)).Start();
-        Console.WriteLine("Started sesssion with " + clientName);
+        new Task(() =>GetName(client)).Start();
+        Console.WriteLine("Started sesssion with new client to get name!");
        
     }
 }
 
-void StartSession(Chatter chatter)
+void GetName(ChatterClient client)
 {
-    chatter.client.SendString("There are " + GData.chatRooms.GetCount() + " rooms! Type \" join <Room Name (No Spaces)>\" ");
-    byte[] bytes;
-    string msgBuffer;
-    while (true)
-    {
-        bytes = chatter.client.ReadBuffer();
-        msgBuffer = Cipher.Decode(bytes);
-        string[] cutMsg = msgBuffer.Split(" ");
-        try
-        {
-            if (cutMsg[0] == "join")
-            {
-                ChatRoom room = GData.GetChatRoomByName(cutMsg[1]);
-                room.AddChatter(chatter);
-                chatter.client.SendString("Joined Test");
-                break;
-            }
-        }catch(Exception e){}
-        
+    client.SendString("Please Input your name: ");
+    client.ReceivedMsgEvent += GetNameTrigger;
+}
 
+void GetNameTrigger(object sender, EventArgs a)
+{
+    ReceivedMsgEventArgs args = (ReceivedMsgEventArgs)a;
+    ChatterClient client = args.sender;
+    if (!client.beenNamed)
+    {
+        client.beenNamed = true;
+        client.chatterName = args.msg;
+        Console.WriteLine("Got name from " + client.chatterName);
+        RoomSelectText(client);
+        client.ReceivedMsgEvent += RoomSelectTrigger;
     }
-   
+    client.ReceivedMsgEvent -= GetNameTrigger;
+    
+}
+
+
+void RoomSelectText(ChatterClient client)
+{
+    client.SendString("There are " + GData.chatRooms.GetCount() + " rooms! Type \" join <Room Name (No Spaces)>\" ");
+}
+
+void RoomSelectTrigger(object sender, EventArgs a)
+{
+    ReceivedMsgEventArgs args = (ReceivedMsgEventArgs)a;
+    ChatterClient client = args.sender;
+    string msg = args.msg;
+    try
+    {
+        string[] cutMsg = msg.Split(" ");
+        if (cutMsg[0] == "join")
+        {
+            ChatRoom room = GData.GetChatRoomByName(cutMsg[1]);
+            room.AddChatter(client);
+            client.SendString("Joined Test");
+            client.ReceivedMsgEvent -= RoomSelectTrigger;
+            
+        }
+    }catch(Exception e){}
     
 }
 
@@ -92,7 +108,7 @@ public static class GData
     }
     public static SafeList<ChatRoom> chatRooms = new SafeList<ChatRoom>();
     //public static ChatRoom chatRoom;
-    public static Chatter systemChatter = new Chatter("Server", null);
+    
 }
 
 [Obsolete("This does literally nothing anymore! Just kept around incase I need it for later??????????? Bad choice.?  . . . yes!")]

@@ -6,7 +6,7 @@ namespace Server;
 public class ChatRoom
 {
     private string roomName; 
-    private SafeList<Chatter> chatters = new SafeList<Chatter>();
+    private SafeList<ChatterClient> chatters = new SafeList<ChatterClient>();
     private SafeList<MessageData> msgque = new SafeList<MessageData>();
 
     public ChatRoom(string roomName)
@@ -36,25 +36,25 @@ public class ChatRoom
             {
                 if ("" != msgque.GetAt(0).msg)
                 {
-                    Console.WriteLine(msgque.GetAt(0).sender.name + ": " + msgque.GetAt(0).msg + " ");
+                    Console.WriteLine(msgque.GetAt(0).sender.chatterName + ": " + msgque.GetAt(0).msg + " ");
                 }
                 else
                 {
-                    Console.WriteLine(msgque.GetAt(0).sender.name + ":  ");
+                    Console.WriteLine(msgque.GetAt(0).sender.chatterName + ":  ");
                 }
 
         
                 lock (chatters)
                 {
             
-                    foreach (Chatter chatter in chatters.GetCopyOfInternalList())
+                    foreach (ChatterClient client in chatters.GetCopyOfInternalList())
                     {
-                        if (chatter != msgque.GetAt(0).sender)
+                        if (client != msgque.GetAt(0).sender)
                         {
                             try
                             {
-                                if (chatter.client.isClientAlive())
-                                    chatter.client.SendString(msgque.GetAt(0).sender.name + ": " + msgque.GetAt(0).msg);
+                                if (client.isClientAlive())
+                                    client.SendString(msgque.GetAt(0).sender.chatterName + ": " + msgque.GetAt(0).msg);
                             }
                             catch (Exception e)
                             {
@@ -77,13 +77,13 @@ public class ChatRoom
     
     
 
-    public void AddChatter(Chatter element)
+    public void AddChatter(ChatterClient element)
     {
         chatters.Add(element);
-        new Task(() => { MsgReceiveTask(element);}).Start();
+        //new Task(() => { MsgReceiveTask(element);}).Start();  
         msgque.Add(new MessageData(element.name + " joined!", GData.systemChatter));
     }
-    void MsgReceiveTask([In,Out]Chatter chatter)
+    void MsgReceiveTrigger(object sender, EventArgs a)
     {
         byte[] buffer = new byte[256];
         while (true)

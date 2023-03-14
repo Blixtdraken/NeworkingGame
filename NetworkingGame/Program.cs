@@ -26,7 +26,7 @@ namespace NetworkingGame
                     {
                         client.GetStream().Read(buffer, 0, 256);
                         Console.SetCursorPosition(0, Console.CursorTop);
-                        Console.Write(new string(' ', Console.WindowWidth));
+                        Console.Write(" " +new string(' ', Console.WindowWidth));
                         Console.SetCursorPosition(0, Console.CursorTop-1);
                         Console.Write(Cipher.Decode(buffer));
                         Console.SetCursorPosition(0, Console.CursorTop+1);
@@ -77,14 +77,14 @@ namespace NetworkingGame
                     {
                         consoleBuffer = consoleBuffer.Remove(consoleBuffer.Length-1, 1);
                         Console.SetCursorPosition(0, Console.CursorTop);
-                        Console.Write(new string(' ', Console.WindowWidth));
+                        Console.Write(" " +new string(' ', Console.WindowWidth));
                         Console.SetCursorPosition(0, Console.CursorTop - 1);
                         Console.Write(consoleBuffer);
                     }
                     else if (key.Key == ConsoleKey.Enter)
                     {
                         Console.SetCursorPosition(0, Console.CursorTop);
-                        Console.Write(new string(' ', Console.WindowWidth));
+                        Console.Write(" " +new string(' ', Console.WindowWidth));
                         Console.SetCursorPosition(0, Console.CursorTop - 1);
                         Console.WriteLine("Me: " + consoleBuffer);
                         Console.SetCursorPosition(0, Console.CursorTop);
