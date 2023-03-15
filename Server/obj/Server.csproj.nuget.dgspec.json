@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\blixt\\Documents\\GitHub\\NeworkingGame\\Server\\Server.csproj": {}
+    "C:\\Users\\pontus.daderman\\Documents\\GitHub\\NeworkingGame\\Server\\Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\blixt\\Documents\\GitHub\\NeworkingGame\\Server\\Server.csproj": {
+    "C:\\Users\\pontus.daderman\\Documents\\GitHub\\NeworkingGame\\Server\\Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\blixt\\Documents\\GitHub\\NeworkingGame\\Server\\Server.csproj",
+        "projectUniqueName": "C:\\Users\\pontus.daderman\\Documents\\GitHub\\NeworkingGame\\Server\\Server.csproj",
         "projectName": "Server",
-        "projectPath": "C:\\Users\\blixt\\Documents\\GitHub\\NeworkingGame\\Server\\Server.csproj",
-        "packagesPath": "C:\\Users\\blixt\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\blixt\\Documents\\GitHub\\NeworkingGame\\Server\\obj\\",
+        "projectPath": "C:\\Users\\pontus.daderman\\Documents\\GitHub\\NeworkingGame\\Server\\Server.csproj",
+        "packagesPath": "C:\\Users\\pontus.daderman\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pontus.daderman\\Documents\\GitHub\\NeworkingGame\\Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\blixt\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\pontus.daderman\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

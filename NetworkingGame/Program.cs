@@ -25,13 +25,18 @@ namespace NetworkingGame
                     try
                     {
                         client.GetStream().Read(buffer, 0, 256);
-                        Console.SetCursorPosition(0, Console.CursorTop);
-                        Console.Write(" " +new string(' ', Console.WindowWidth));
-                        Console.SetCursorPosition(0, Console.CursorTop-1);
-                        Console.Write(Cipher.Decode(buffer));
-                        Console.SetCursorPosition(0, Console.CursorTop+1);
-                        Console.Write(consoleBuffer);
-                        
+                        if(Cipher.Decode(buffer) == "cmd clear") Console.Clear();
+                        else
+                        {
+                            Console.SetCursorPosition(0, Console.CursorTop);
+                            Console.Write(" " +new string(' ', Console.WindowWidth));
+                            Console.SetCursorPosition(0, Console.CursorTop-1);
+                            Console.Write(Cipher.Decode(buffer));
+                            Console.SetCursorPosition(0, Console.CursorTop+1);
+                            Console.Write(consoleBuffer);
+
+                        }
+                       
                     
                     }
                     catch (IOException e)
@@ -44,25 +49,19 @@ namespace NetworkingGame
         
                 }
             }
-            //Console.WriteLine("This is Blixt's chatroom/networking test! Select a name for you to be refernced by!");
-           // Console.Write("Enter Name: ");  string name = Console.ReadLine();
-            Console.Clear();
-            //Console.Write("Input host adress: ");
-            //string ipAdress = Console.ReadLine();
-            string ipAdress = "130.61.171.190";
             
+            string ipAdress = "130.61.171.190";
             if(args.Length != 0 && args[0] == "local")
              ipAdress= "127.0.0.1";
             
             //Console.WriteLine(ipAdress);
             Console.WriteLine("Client: Connecting....");
             TcpClient client = new TcpClient(ipAdress, 4587);
-            //client.GetStream().Write(Cipher.Encode(name, 256), 0 ,256);
-            new Task(() => {RunMsgTask(client);}).Start();
-            //client.Connect(IPAddress.Parse("127.0.0.1"), 4587);
             Console.WriteLine("Client: Connected");
-            Console.Clear();
-            //Console.WriteLine("Welcome to the chatroom " + name + "!");
+            new Task(() => {RunMsgTask(client);}).Start();
+            
+            
+         
             
 
             while (true)

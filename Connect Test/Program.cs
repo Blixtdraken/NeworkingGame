@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Net.Mime;
+using System.Net.Sockets;
 
 namespace Connect_Test
 {
@@ -9,26 +10,12 @@ namespace Connect_Test
         
         public  static void Main(string[] args)
         {
-
-            byte bit = 1;
-            int num = bit;
-            Test test = new Test();
-            test.MyEvent += TriggerThis;
-            Console.WriteLine("Started!");
-            test.InvokeMyEvent();
-            test.InvokeMyEvent();
-            test.MyEvent -= TriggerThis;
-            test.InvokeMyEvent();
-            test.InvokeMyEvent();
-            test.MyEvent -= TriggerThis;
-            test.InvokeMyEvent();
+            TcpClient client = new TcpClient("130.61.171.190", 4587);
+            Console.WriteLine(client);
             Console.ReadLine();
 
         }
-        static void TriggerThis (object sender, EventArgs args)
-        {
-            Console.WriteLine(((MyEventArgs)args).text);
-        }
+       
 
 
 

@@ -9,14 +9,26 @@
   <component name="ChangeListManager">
     <list default="true" id="de943a20-16f2-40fe-a27c-f4b607bc0d47" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Wave Fucntion Collapse/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Wave Fucntion Collapse/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Connect Test/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Connect Test/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Connect Test/obj/Debug/Connect Test.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Connect Test/obj/Debug/Connect Test.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NetworkingGame/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NetworkingGame/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NetworkingGame/bin/Debug/NetworkingGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/NetworkingGame/bin/Debug/NetworkingGame.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NetworkingGame/bin/Debug/NetworkingGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/NetworkingGame/bin/Debug/NetworkingGame.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NetworkingGame/obj/Debug/NetworkingGame.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/NetworkingGame/obj/Debug/NetworkingGame.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NetworkingGame/obj/Debug/NetworkingGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/NetworkingGame/obj/Debug/NetworkingGame.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NetworkingGame/obj/Debug/NetworkingGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/NetworkingGame/obj/Debug/NetworkingGame.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/ChatRoom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/ChatRoom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/ChatterClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/ChatterClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/bin/Debug/net7.0/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/Debug/net7.0/Server.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/bin/Debug/net7.0/Server.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/Debug/net7.0/Server.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/obj/Debug/net7.0/Server.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Server/obj/Debug/net7.0/Server.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/obj/Debug/net7.0/Server.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Server/obj/Debug/net7.0/Server.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/obj/Debug/net7.0/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Server/obj/Debug/net7.0/Server.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/obj/Debug/net7.0/Server.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Server/obj/Debug/net7.0/Server.genruntimeconfig.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/obj/Debug/net7.0/Server.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Server/obj/Debug/net7.0/Server.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/obj/Debug/net7.0/ref/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Server/obj/Debug/net7.0/ref/Server.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/obj/Debug/net7.0/refint/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Server/obj/Debug/net7.0/refint/Server.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/obj/Server.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Server/obj/Server.csproj.nuget.dgspec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/obj/Server.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Server/obj/Server.csproj.nuget.g.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Server/obj/project.assets.json" afterDir="false" />
@@ -46,13 +58,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected=".NET Project.Server">
+  <component name="RunManager" selected=".NET Project.Connect Test">
     <configuration name="Debug" type="CompoundRunConfigurationType">
       <toRun name="Client" type="DotNetProject" />
       <toRun name="Server" type="DotNetProject" />
       <method v="2" />
     </configuration>
-    <configuration name="Client" type="DotNetProject" factoryName=".NET Project">
+    <configuration name="Client" type="DotNetProject" factoryName=".NET Project" singleton="false">
       <option name="EXE_PATH" value="$PROJECT_DIR$/NetworkingGame/bin/Debug/NetworkingGame.exe" />
       <option name="PROGRAM_PARAMETERS" value="local" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/NetworkingGame/bin/Debug" />
@@ -71,11 +83,11 @@
       </method>
     </configuration>
     <configuration name="Connect Test" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Connect Test/bin/Debug/Connect_Test.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Connect Test/bin/Debug" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_EXTERNAL_CONSOLE" value="1" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
       <option name="PROJECT_PATH" value="$PROJECT_DIR$/Connect Test/Connect Test.csproj" />
@@ -83,7 +95,7 @@
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
       <option name="PROJECT_KIND" value="Console" />
-      <option name="PROJECT_TFM" value="" />
+      <option name="PROJECT_TFM" value=".NETFramework,Version=v4.7.2" />
       <method v="2">
         <option name="Build" />
       </method>

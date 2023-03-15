@@ -22,9 +22,13 @@ public class ChatRoom
     {
         return this.roomName;
     }
+    
+    public List<ChatterClient> GetListOfChatters()
+    {
+        return chatters.GetCopyOfInternalList();
+    }
     public void Init()
     {
-
         msgQueScrollerTask = new Task(() => { MsgQueScrollerTask(); });
         msgQueScrollerTask.Start();
     }
@@ -37,8 +41,10 @@ public class ChatRoom
     
             if (msgque.GetCount() >= 1 && msgque.GetAt(0) != null)
             {
+                /*
                 if ("" != msgque.GetAt(0).msg)
                 {
+                    
                     if (msgque.GetAt(0).sender != null)
                     {
                         Console.WriteLine(msgque.GetAt(0).sender.chatterName + ": " + msgque.GetAt(0).msg);
@@ -53,6 +59,7 @@ public class ChatRoom
                 {
                     Console.WriteLine(msgque.GetAt(0).sender.chatterName + ":  ");
                 }
+                */
 
         
                 lock (chatters)
@@ -99,7 +106,9 @@ public class ChatRoom
 
     public void AddChatter(ChatterClient client)
     {
+        client.SendString("cmd clear");
         chatters.Add(client);
+        
         client.SendString("You just joined the room with name " + this.roomName + "!");
         //new Task(() => { MsgReceiveTask(element);}).Start();  
         msgque.Add(new MessageData(client.chatterName + " joined the room!", null));
@@ -115,13 +124,13 @@ public class ChatRoom
         client.ReceivedMsgEvent -= MsgReceiveTrigger;
         client.ClientDisconnectEvent -= LeaveTrigger;
         chatters.Remove(client);
-        msgque.Add(new MessageData(client.chatterName + " left the room!!", null));
+        msgque.Add(new MessageData(client.chatterName + " left the room!!", null)); Console.WriteLine("Sent ");
 
         if (chatters.GetCount() == 0)
         {
             msgQueScrollerTask.Wait();
             msgQueScrollerTask.Dispose();
-            Lobby.RemoveRoom(this);
+            Lobby.RemoveRoom(this); 
         }
         
     }
@@ -129,7 +138,17 @@ public class ChatRoom
     {
         ReceivedMsgEventArgs args = (ReceivedMsgEventArgs) a;
         ChatterClient client = args.sender;
-        msgque.Add(new MessageData(args.msg, client));
+        if (args.msg.ToLower() == "leave")
+        {
+            client.ClientDisconnectEvent?.Invoke(client, new ClientDisconnectEventArgs(client)); Console.WriteLine("Invoked disconnect");
+            Lobby.RoomSelectText(client);
+            client.ReceivedMsgEvent += Lobby.RoomSelectTrigger;
+        }
+        else
+        {
+            msgque.Add(new MessageData(args.msg, client));
+        }
+       
     }
     
   

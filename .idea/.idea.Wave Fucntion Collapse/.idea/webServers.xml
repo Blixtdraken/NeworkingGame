@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a1fbe32e-0aaf-4f3b-8f74-616b5a79863a" name="Server">
+        <fileTransfer accessType="SFTP" host="130.61.171.190" port="2022" sshConfigId="94368f8e-d980-4c9e-9910-d82077cc8107" sshConfig="blixt.d944b2dc@130.61.171.190:2022 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

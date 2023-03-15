@@ -11,19 +11,20 @@ void ListenForClients([In,Out] TcpListener listener)
 {
     while (true)
     {
-        
-       
-        ChatterClient client = new ChatterClient(listener.AcceptTcpClient().Client);
+      
+            ChatterClient client = new ChatterClient(listener.AcceptTcpClient().Client);
+            Console.WriteLine("Client Connected!");
+            new Task(() =>GetName(client)).Start();
+            Console.WriteLine("Started sesssion with new client to get name!");
 
-        Console.WriteLine("Client Connected!");
-        new Task(() =>GetName(client)).Start();
-        Console.WriteLine("Started sesssion with new client to get name!");
+        
        
     }
 }
 
 void GetName(ChatterClient client)
 {
+    client.SendString("cmd clear");
     client.SendString("Please Input your name: ");
     client.ReceivedMsgEvent += GetNameTrigger;
 }
@@ -74,14 +75,21 @@ public static class Lobby
 {
     public static void RoomSelectText(ChatterClient client)
     {
-        Console.WriteLine(client.chatterName + " Started select");
-        client.SendString("There are " + GData.chatRooms.GetCount() + " rooms! Type \" join <Room Name (No Spaces)>\" ");
+        SafeList<ChatRoom> rooms = GData.chatRooms;
+        client.SendString("cmd clear");
+        client.SendString("Type \"join <Room Name>\" to join a room, if room doesn't yet exist it will be created for you!");
+        client.SendString("Existing Rooms:");
+        foreach (ChatRoom room in rooms.GetCopyOfInternalList())
+        {
+            client.SendString(room.GetRoomName() + "    Chatters: " + room.GetListOfChatters().Count);
+        }
+
+        client.SendString("  ");
     }
 
     public static void RemoveRoom(ChatRoom room)
     {
         GData.chatRooms.Remove(room);
-        
     }
 
     public static void RoomSelectTrigger(object sender, EventArgs a)
@@ -93,7 +101,7 @@ public static class Lobby
         try
         {
             string[] cutMsg = msg.Split(" ");
-            if (cutMsg[0] == "join")
+            if (cutMsg[0] == "join" && cutMsg.Length >=2)
             {
                 
                 if (GData.GetChatRoomByName(cutMsg[1]) != null)

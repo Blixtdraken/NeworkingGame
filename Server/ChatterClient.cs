@@ -23,6 +23,7 @@ public class ChatterClient: TcpClient
         while (!Connected);
         while (true)
         {
+            while (!GetStream().DataAvailable) ;
             byte[] bytes = ReceiveBytes();
             if (bytes != null)
             {
