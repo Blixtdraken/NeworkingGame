@@ -15,21 +15,21 @@ public class SafeList<T>
 
     public void Add(T value)
     {
-        while (isBusy);
+        while (isBusy)Thread.Sleep(10);;
         isBusy = true;
         _internalList.Add(value);
         isBusy = false;
     }
     public void Remove(T value)
     {
-        while (isBusy);
+        while (isBusy)Thread.Sleep(10);;
         isBusy = true;
         _internalList.Remove(value);
         isBusy = false;
     }
     public void RemoveAt(int index)
     {
-        while (isBusy);
+        while (isBusy)Thread.Sleep(10);;
         isBusy = true;
         _internalList.RemoveAt(index);
         isBusy = false;
@@ -37,7 +37,7 @@ public class SafeList<T>
 
     public List<T> GetCopyOfInternalList()
     {
-        while (isBusy);
+        while (isBusy)Thread.Sleep(10);;
         isBusy = true;
         List<T> copyList = new List<T>(_internalList);
         isBusy = false;
@@ -46,7 +46,7 @@ public class SafeList<T>
 
     public T GetAt(int index)
     {
-        while (isBusy) ;
+        while (isBusy) Thread.Sleep(10);;
         isBusy = true;
         T value = _internalList[index];
         isBusy = false;
@@ -55,7 +55,7 @@ public class SafeList<T>
   
     public int GetCount()
     {
-        while (isBusy) ;
+        while (isBusy) Thread.Sleep(10);;
         isBusy = true;
         int value = _internalList.Count;
         isBusy = false;

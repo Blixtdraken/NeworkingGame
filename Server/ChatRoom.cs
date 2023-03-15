@@ -93,10 +93,9 @@ public class ChatRoom
                         }
                     }
                 }
-        
-
                 msgque.RemoveAt(0);
             }
+            Thread.Sleep(10);
         }
 
         return Task.CompletedTask;

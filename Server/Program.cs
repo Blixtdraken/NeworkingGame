@@ -11,14 +11,13 @@ void ListenForClients([In,Out] TcpListener listener)
 {
     while (true)
     {
+        
       
             ChatterClient client = new ChatterClient(listener.AcceptTcpClient().Client);
             Console.WriteLine("Client Connected!");
             new Task(() =>GetName(client)).Start();
             Console.WriteLine("Started sesssion with new client to get name!");
-
-        
-       
+            Thread.Sleep(10);
     }
 }
 
@@ -52,6 +51,7 @@ void CommandEvents()
 {
     while (true)
     {
+        Thread.Sleep(10);
         if (Console.ReadLine() == "stop")
         {
             

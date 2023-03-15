@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Sockets;
 
 namespace Server;
@@ -10,27 +11,37 @@ public class ChatterClient: TcpClient
     
     public ChatRoom currentRoom { get; set; }
 
+    private NetworkStream TCP_dataStream;
+
+    
+    
+    
+
     public EventHandler ReceivedMsgEvent;
     public EventHandler ClientDisconnectEvent;
+    private EventHandler _DataAvailableEvent;
 
     public ChatterClient(Socket socket)
     {
-        Client = socket;
         new Task(()=>ByteReadingTask()).Start();
     }
+    
     private void ByteReadingTask()
     {
-        while (!Connected);
+        TcpListener listen = new TcpListener(IPAddress.Any, 1);
+        Socket sock = listen.AcceptSocket();
+        
+        while (!Connected); //Thread.Sleep(1000);;
         while (true)
         {
-            while (!GetStream().DataAvailable) ;
+            while (!GetStream().DataAvailable) ;// Thread.Sleep(10);;
             byte[] bytes = ReceiveBytes();
             if (bytes != null)
             {
                 string text = Cipher.Decode(bytes);
                 ReceivedMsgEvent?.Invoke(this, new ReceivedMsgEventArgs(text, this));
             }
-           
+            Thread.Sleep(10);
         }
         
     }
