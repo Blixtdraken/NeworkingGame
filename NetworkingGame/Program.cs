@@ -36,7 +36,7 @@ namespace NetworkingGame
                     }
                     catch (IOException e)
                     {
-                        Console.WriteLine("A Client discconected!");
+                        Console.WriteLine("Server connection lost???????????");
                         client.Close();
             
                         break;
@@ -44,8 +44,8 @@ namespace NetworkingGame
         
                 }
             }
-            Console.WriteLine("This is Blixt's chatroom/networking test! Select a name for you to be refernced by!");
-            Console.Write("Enter Name: ");  string name = Console.ReadLine();
+            //Console.WriteLine("This is Blixt's chatroom/networking test! Select a name for you to be refernced by!");
+           // Console.Write("Enter Name: ");  string name = Console.ReadLine();
             Console.Clear();
             //Console.Write("Input host adress: ");
             //string ipAdress = Console.ReadLine();
@@ -57,12 +57,12 @@ namespace NetworkingGame
             //Console.WriteLine(ipAdress);
             Console.WriteLine("Client: Connecting....");
             TcpClient client = new TcpClient(ipAdress, 4587);
-            client.GetStream().Write(Cipher.Encode(name, 256), 0 ,256);
+            //client.GetStream().Write(Cipher.Encode(name, 256), 0 ,256);
             new Task(() => {RunMsgTask(client);}).Start();
             //client.Connect(IPAddress.Parse("127.0.0.1"), 4587);
             Console.WriteLine("Client: Connected");
             Console.Clear();
-            Console.WriteLine("Welcome to the chatroom " + name + "!");
+            //Console.WriteLine("Welcome to the chatroom " + name + "!");
             
 
             while (true)

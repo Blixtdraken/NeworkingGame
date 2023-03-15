@@ -11,15 +11,12 @@ public class ChatterClient: TcpClient
     public ChatRoom currentRoom { get; set; }
 
     public EventHandler ReceivedMsgEvent;
+    public EventHandler ClientDisconnectEvent;
 
     public ChatterClient(Socket socket)
     {
         Client = socket;
         new Task(()=>ByteReadingTask()).Start();
-       // new Task(()=>Debug()).Start();
-
-        
-        
     }
     private void ByteReadingTask()
     {
@@ -27,6 +24,12 @@ public class ChatterClient: TcpClient
         while (true)
         {
             byte[] bytes = ReceiveBytes();
+            if (bytes != null)
+            {
+                string text = Cipher.Decode(bytes);
+                ReceivedMsgEvent?.Invoke(this, new ReceivedMsgEventArgs(text, this));
+            }
+           
         }
         
     }
@@ -52,6 +55,7 @@ public class ChatterClient: TcpClient
         }
         catch (Exception e)
         {
+            ClientDisconnectEvent?.Invoke(this, new ClientDisconnectEventArgs(this));
             return false;
         }
         
@@ -65,7 +69,16 @@ public class ChatterClient: TcpClient
     private byte[] ReceiveBytes()
     {
         byte[] buffer = new byte[bufferSize];
-        GetStream().Read(buffer, 0, bufferSize);
+        try
+        {
+            GetStream().Read(buffer, 0, bufferSize);
+        }
+        catch (Exception e)
+        {
+            ClientDisconnectEvent?.Invoke(this, new ClientDisconnectEventArgs(this));
+            return null;
+        }
+       
         return buffer;
     }
 
@@ -76,6 +89,20 @@ public class ChatterClient: TcpClient
 
 class ReceivedMsgEventArgs:EventArgs
 {
-    public string msg { get; set; }
-    public ChatterClient sender { get; set; }
+    public ReceivedMsgEventArgs(string msg, ChatterClient sender)
+    {
+        this.msg = msg;
+        this.sender = sender;
+    }
+    public string msg { get; }
+    public ChatterClient sender { get; }
+}
+
+class ClientDisconnectEventArgs:EventArgs
+{
+    public ClientDisconnectEventArgs(ChatterClient client)
+    {
+        this.client = client;
+    }
+    public ChatterClient client { get; }
 }

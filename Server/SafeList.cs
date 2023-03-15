@@ -18,7 +18,6 @@ public class SafeList<T>
         while (isBusy);
         isBusy = true;
         _internalList.Add(value);
-        Console.WriteLine("Added to list of " + typeof(T).ToString());
         isBusy = false;
     }
     public void Remove(T value)
@@ -32,7 +31,7 @@ public class SafeList<T>
     {
         while (isBusy);
         isBusy = true;
-        _internalList.RemoveAt(index); Console.WriteLine("Removed from a list of: " + typeof(T));
+        _internalList.RemoveAt(index);
         isBusy = false;
     }
 
@@ -49,10 +48,8 @@ public class SafeList<T>
     {
         while (isBusy) ;
         isBusy = true;
-        //if(_internalList[index] == null) Console.WriteLine(" Reading a Nul value   gr9gefciadcbpe");
-        T value = _internalList[index]; Console.WriteLine("Read list of " + typeof(T).ToString());
+        T value = _internalList[index];
         isBusy = false;
-        if(value == null) Console.WriteLine("Returned NUll Value                            0123i12y301294713g  0hcugfowuhf" );
         return value;
     }
   

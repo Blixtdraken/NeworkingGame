@@ -37,38 +37,15 @@ void GetNameTrigger(object sender, EventArgs a)
         client.beenNamed = true;
         client.chatterName = args.msg;
         Console.WriteLine("Got name from " + client.chatterName);
-        RoomSelectText(client);
-        client.ReceivedMsgEvent += RoomSelectTrigger;
+        Lobby.RoomSelectText(client);
+        client.ReceivedMsgEvent += Lobby.RoomSelectTrigger;
     }
     client.ReceivedMsgEvent -= GetNameTrigger;
     
 }
 
 
-void RoomSelectText(ChatterClient client)
-{
-    client.SendString("There are " + GData.chatRooms.GetCount() + " rooms! Type \" join <Room Name (No Spaces)>\" ");
-}
 
-void RoomSelectTrigger(object sender, EventArgs a)
-{
-    ReceivedMsgEventArgs args = (ReceivedMsgEventArgs)a;
-    ChatterClient client = args.sender;
-    string msg = args.msg;
-    try
-    {
-        string[] cutMsg = msg.Split(" ");
-        if (cutMsg[0] == "join")
-        {
-            ChatRoom room = GData.GetChatRoomByName(cutMsg[1]);
-            room.AddChatter(client);
-            client.SendString("Joined Test");
-            client.ReceivedMsgEvent -= RoomSelectTrigger;
-            
-        }
-    }catch(Exception e){}
-    
-}
 
 void CommandEvents()
 {
@@ -82,11 +59,10 @@ void CommandEvents()
         }
     }
 }
-GData.chatRooms.Add(new ChatRoom("test"));
+
 Console.WriteLine("Init");
 new Task(() => {CommandEvents();}).Start();
 TcpListener listener = new TcpListener(IPAddress.Any, 4587);
-//GData.chatRoom = new ChatRoom("Default");
 Console.Clear();
 Console.WriteLine("Started");
 listener.Start();
@@ -94,6 +70,48 @@ ListenForClients(listener);
 
 
 
+public static class Lobby
+{
+    public static void RoomSelectText(ChatterClient client)
+    {
+        Console.WriteLine(client.chatterName + " Started select");
+        client.SendString("There are " + GData.chatRooms.GetCount() + " rooms! Type \" join <Room Name (No Spaces)>\" ");
+    }
+
+    public static void RemoveRoom(ChatRoom room)
+    {
+        GData.chatRooms.Remove(room);
+        
+    }
+
+    public static void RoomSelectTrigger(object sender, EventArgs a)
+    {
+        ReceivedMsgEventArgs args = (ReceivedMsgEventArgs)a;
+        ChatterClient client = args.sender;
+        Console.WriteLine(client.chatterName + " tried select");
+        string msg = args.msg;
+        try
+        {
+            string[] cutMsg = msg.Split(" ");
+            if (cutMsg[0] == "join")
+            {
+                ChatRoom room = GData.GetChatRoomByName(cutMsg[1]);
+                if (room != null)
+                {
+                    room.AddChatter(client);
+                }
+                else
+                {
+                    GData.chatRooms.Add(new ChatRoom(cutMsg[1]));
+                }
+                
+                client.ReceivedMsgEvent -= RoomSelectTrigger;
+            
+            }
+        }catch(Exception e){}
+    
+    }
+}
 
 public static class GData
 {
