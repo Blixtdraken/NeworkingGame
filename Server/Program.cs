@@ -89,20 +89,23 @@ public static class Lobby
         ReceivedMsgEventArgs args = (ReceivedMsgEventArgs)a;
         ChatterClient client = args.sender;
         Console.WriteLine(client.chatterName + " tried select");
-        string msg = args.msg;
+        string msg = args.msg; Console.WriteLine(client.chatterName + " wrote " + msg);
         try
         {
             string[] cutMsg = msg.Split(" ");
             if (cutMsg[0] == "join")
             {
-                ChatRoom room = GData.GetChatRoomByName(cutMsg[1]);
-                if (room != null)
+                
+                if (GData.GetChatRoomByName(cutMsg[1]) != null)
                 {
+                    ChatRoom room = GData.GetChatRoomByName(cutMsg[1]);
                     room.AddChatter(client);
                 }
                 else
                 {
-                    GData.chatRooms.Add(new ChatRoom(cutMsg[1]));
+                    ChatRoom room = new ChatRoom(cutMsg[1]);
+                    GData.chatRooms.Add(room);
+                    room.AddChatter(client);
                 }
                 
                 client.ReceivedMsgEvent -= RoomSelectTrigger;
